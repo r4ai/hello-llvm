@@ -8,8 +8,6 @@ Kernel: 5.15.146.1-microsoft-standard-WSL2
 Shell: fish 3.7.1
 Terminal: Windows Terminal
 CPU: AMD Ryzen 5 3600 (12) @ 3.600GHz
-GPU: 6095:00:00.0 Microsoft Corporation Device 008e
-Memory: 8152MiB / 15971MiB
 ```
 
 ```txt
