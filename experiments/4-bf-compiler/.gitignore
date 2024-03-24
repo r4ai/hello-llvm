@@ -1,0 +1,5 @@
+*.out
+bf
+output
+output.s
+dist
