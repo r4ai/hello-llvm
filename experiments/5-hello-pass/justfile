@@ -1,0 +1,50 @@
+set dotenv-load
+
+BUILD_DIR := justfile_directory() + '/build'
+
+build:
+  cmake -DHL_LLVM_INSTALL_DIR=$LLVM_DIR -S . -B build
+  cmake --build build
+
+[no-cd]
+pass-lvn file: build
+  opt \
+    -load-pass-plugin {{BUILD_DIR}}/src/libLocalValueNumbering.so \
+    -passes=simple-lvn {{file}} \
+    -S -o {{file_stem(file)}}.passed.ll
+
+[no-cd]
+emit-llvm-ir-o0 file:
+  clang -S -emit-llvm -O0 -Xclang -disable-O0-optnone {{file}} -o {{file_stem(file)}}.ll
+
+[no-cd]
+emit-llvm-ir-o1 file:
+  clang -S -emit-llvm -O1 {{file}} -o {{file_stem(file)}}.ll
+
+[no-cd]
+dot-dom-only file:
+  opt {{file_stem(file)}}.ll -passes='dot-dom-only' -disable-output
+
+[no-cd]
+dot-dom file:
+  opt {{file_stem(file)}}.ll -passes='dot-dom' -disable-output
+
+[no-cd]
+dot-cfg file:
+  opt {{file_stem(file)}}.ll -passes='dot-cfg' -disable-output
+
+[no-cd]
+dot-cfg-only file:
+  opt {{file_stem(file)}}.ll -passes='dot-cfg-only' -disable-output
+
+[no-cd]
+dot-post-dom file:
+  opt {{file_stem(file)}}.ll -passes='dot-post-dom' -disable-output
+
+[no-cd]
+dot-post-dom-only file:
+  opt {{file_stem(file)}}.ll -passes='dot-post-dom-only' -disable-output
+
+[no-cd]
+dot-callgraph file:
+  opt {{file_stem(file)}}.ll -passes='dot-callgraph' -disable-output
