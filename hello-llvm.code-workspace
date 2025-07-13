@@ -1,0 +1,10 @@
+{
+  "folders": [
+    { "path": "." },
+    { "path": "experiments/1-just-return" },
+    { "path": "experiments/2-helloworld" },
+    { "path": "experiments/3-bf-interpreter" },
+    { "path": "experiments/4-bf-compiler" },
+    { "path": "experiments/5-hello-pass" }
+  ]
+}
